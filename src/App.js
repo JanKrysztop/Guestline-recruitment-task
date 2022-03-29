@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [hotelList, setHotelList] = useState([]);
+  const [roomList, setRoomList] = useState([]);
+
+  useEffect(() => {
+    fetchApiData();
+    // fetchRoomData();
+    // console.log(hotelList);
+  }, []);
+
+  const fetchApiData = () => {
+    fetch('https://obmng.dbm.guestline.net/api/hotels?collection-id=OBMNG')
+      .then((response) => response.json())
+      .then((json) => setHotelList(json));
+  };
+
+  // const fetchRoomData = () => {
+  //   fetch(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${hotelId}`)
+  //     .then((response) => response.json())
+  //     .then((json) => setRoomList(json));
+  // };
+
+  const hotelId = hotelList.map(({ id }) => ({ id }));
+  console.log(hotelId);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {hotelList.map((hotel) => (
+        <div key={hotel.id}>
+          <h3>{hotel.name}</h3>
+          <p>{hotel.description}</p>
+          {/* {hotelId.map((link) => (
+            <div>{link.id}</div>
+          ))} */}
+        </div>
+      ))}
+    </>
   );
 }
 
