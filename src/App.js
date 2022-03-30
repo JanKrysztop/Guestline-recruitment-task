@@ -5,9 +5,9 @@ function App() {
   const [roomList, setRoomList] = useState([]);
 
   useEffect(() => {
-    fetchApiData();
-    // fetchRoomData();
     // console.log(hotelList);
+    fetchApiData();
+    fetchRoomsData();
   }, []);
 
   const fetchApiData = () => {
@@ -16,14 +16,19 @@ function App() {
       .then((json) => setHotelList(json));
   };
 
-  // const fetchRoomData = () => {
-  //   fetch(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${hotelId}`)
-  //     .then((response) => response.json())
-  //     .then((json) => setRoomList(json));
-  // };
+  const hotelId = hotelList.map(({ id }) => id);
+  // console.log(hotelId);
 
-  const hotelId = hotelList.map(({ id }) => ({ id }));
-  console.log(hotelId);
+  const fetchRoomsData = () => {
+    for (let roomId of hotelId) {
+      // console.log(roomId);
+      fetch(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${roomId}`)
+        .then((response) => response.json())
+        .then((data) => setRoomList(data));
+      // .then(() => setRoomList(roomList.push(currentRoom)));
+    }
+  };
+  console.log(roomList);
 
   return (
     <>
@@ -31,9 +36,6 @@ function App() {
         <div key={hotel.id}>
           <h3>{hotel.name}</h3>
           <p>{hotel.description}</p>
-          {/* {hotelId.map((link) => (
-            <div>{link.id}</div>
-          ))} */}
         </div>
       ))}
     </>
