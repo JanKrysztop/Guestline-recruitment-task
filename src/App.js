@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Hotel from './components/Hotel';
+
+const StyledWrapper = styled.div`
+  margin: 0 auto;
+`;
 
 function App() {
   const [hotelList, setHotelList] = useState([]);
 
   useEffect(() => {
     fetchApiData();
+    console.log(hotelList);
   }, []);
 
   const fetchApiData = () => {
@@ -29,11 +35,16 @@ function App() {
 
   return (
     <>
+      1232
       {hotelList.map((hotel) => (
         <Hotel
           key={hotel.id}
           id={hotel.id}
+          image={hotel.images}
           name={hotel.name}
+          address1={hotel.address1}
+          address2={hotel.address2}
+          rating={hotel.starRating}
           description={hotel.description}
         />
       ))}
