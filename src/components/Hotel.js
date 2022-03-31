@@ -21,12 +21,34 @@ const StyledImages = styled.div`
 
 const StyledName = styled.div`
   padding-left: 10px;
-  font-size: 20px;
+  font-size: 40px;
+  h3 {
+    margin-top: 20px;
+    font-size: 30px;
+  }
 `;
 
 const StyledBottom = styled.div`
   display: flex;
   border: 1px solid black;
+`;
+
+const StyledRoom = styled.div`
+  width: 150px;
+  margin: 20px;
+  padding-right: 20px;
+  h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  h5 {
+    margin-bottom: 5px;
+  }
+`;
+
+const StyledDescription = styled.p`
+  width: 100%;
+  margin: 10px;
 `;
 
 const Hotel = (props) => {
@@ -56,7 +78,7 @@ const Hotel = (props) => {
           </StyledImages>
         ))}
         <StyledName>
-          <h2 style={{ marginTop: '0' }}>{props.name}</h2>
+          <h2>{props.name}</h2>
           <h3>{props.address1}</h3>
           <h3>{props.address2}</h3>
         </StyledName>
@@ -69,12 +91,12 @@ const Hotel = (props) => {
       </StyledTop>
       {roomList.map((room) => (
         <StyledBottom key={room.id}>
-          <div>
+          <StyledRoom>
             <h4>{room.name}</h4>
             <h5>Adults: {room.occupancy.maxAdults}</h5>
             <h5>Children: {room.occupancy.maxChildren}</h5>
-          </div>
-          <p>{room.longDescription}</p>
+          </StyledRoom>
+          <StyledDescription>{room.longDescription}</StyledDescription>
         </StyledBottom>
       ))}
     </StyledHotel>

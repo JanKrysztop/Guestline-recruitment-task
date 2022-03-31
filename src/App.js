@@ -1,3 +1,4 @@
+import { Reset } from 'styled-reset';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Hotel from './components/Hotel';
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <>
-      1232
+      <Reset />
       {hotelList.map((hotel) => (
         <Hotel
           key={hotel.id}
