@@ -1,19 +1,16 @@
 import { Reset } from 'styled-reset';
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Hotel from './components/Hotel';
-
-const StyledWrapper = styled.div`
-  margin: 0 auto;
-`;
+import Filters from './components/Filters';
 
 function App() {
   const [hotelList, setHotelList] = useState([]);
+  const [starValue, setStarValue] = useState(0);
 
   useEffect(() => {
     fetchApiData();
-    console.log(hotelList);
   }, []);
+  console.log(starValue);
 
   const fetchApiData = () => {
     fetch('https://obmng.dbm.guestline.net/api/hotels?collection-id=OBMNG')
@@ -21,34 +18,27 @@ function App() {
       .then((json) => setHotelList(json));
   };
 
-  const hotelId = hotelList.map(({ id }) => id);
-  // console.log(hotelId);
-
-  // const fetchRoomsData = () => {
-  //   for (let roomId of hotelId) {
-  //     // console.log(roomId);
-  //     fetch(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${roomId}`)
-  //       .then((response) => response.json())
-  //       .then((data) => setRoomList(data));
-  //     // .then(() => setRoomList(roomList.push(currentRoom)));
-  //   }
-  // };
+  const filtered = hotelList
+    .filter(({ starRating }) => starRating >= starValue)
+    .map((hotel) => (
+      <Hotel
+        key={hotel.id}
+        id={hotel.id}
+        image={hotel.images}
+        name={hotel.name}
+        address1={hotel.address1}
+        address2={hotel.address2}
+        rating={hotel.starRating}
+        description={hotel.description}
+      />
+    ));
 
   return (
     <>
+      1
       <Reset />
-      {hotelList.map((hotel) => (
-        <Hotel
-          key={hotel.id}
-          id={hotel.id}
-          image={hotel.images}
-          name={hotel.name}
-          address1={hotel.address1}
-          address2={hotel.address2}
-          rating={hotel.starRating}
-          description={hotel.description}
-        />
-      ))}
+      <Filters value={starValue} setValue={setStarValue} />
+      {filtered}
     </>
   );
 }
