@@ -6,11 +6,13 @@ import Filters from './components/Filters';
 function App() {
   const [hotelList, setHotelList] = useState([]);
   const [starValue, setStarValue] = useState(0);
+  const [adultsCount, setAdultsCount] = useState(0);
+  const [childrenCount, setChildrenCount] = useState(0);
 
   useEffect(() => {
     fetchApiData();
+    console.log(hotelList);
   }, []);
-  console.log(starValue);
 
   const fetchApiData = () => {
     fetch('https://obmng.dbm.guestline.net/api/hotels?collection-id=OBMNG')
@@ -18,7 +20,7 @@ function App() {
       .then((json) => setHotelList(json));
   };
 
-  const filtered = hotelList
+  const filteredHotel = hotelList
     .filter(({ starRating }) => starRating >= starValue)
     .map((hotel) => (
       <Hotel
@@ -30,6 +32,8 @@ function App() {
         address2={hotel.address2}
         rating={hotel.starRating}
         description={hotel.description}
+        adultsCount={adultsCount}
+        childrenCount={childrenCount}
       />
     ));
 
@@ -37,8 +41,15 @@ function App() {
     <>
       1
       <Reset />
-      <Filters value={starValue} setValue={setStarValue} />
-      {filtered}
+      <Filters
+        value={starValue}
+        setValue={setStarValue}
+        adultsCount={adultsCount}
+        setAdultsCount={setAdultsCount}
+        childrenCount={childrenCount}
+        setChildrenCount={setChildrenCount}
+      />
+      {filteredHotel}
     </>
   );
 }

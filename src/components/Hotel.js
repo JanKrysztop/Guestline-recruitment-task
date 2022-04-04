@@ -65,6 +65,23 @@ const Hotel = (props) => {
       .then((data) => setRoomList(data.rooms));
   };
 
+  const filteredRooms = roomList
+    .filter(
+      ({ occupancy }) =>
+        occupancy.maxAdults >= props.adultsCount &&
+        occupancy.maxChildren >= props.childrenCount
+    )
+    .map((room) => (
+      <StyledBottom key={room.id}>
+        <StyledRoom>
+          <h4>{room.name}</h4>
+          <h5>Adults: {room.occupancy.maxAdults}</h5>
+          <h5>Children: {room.occupancy.maxChildren}</h5>
+        </StyledRoom>
+        <StyledDescription>{room.longDescription}</StyledDescription>
+      </StyledBottom>
+    ));
+
   return (
     <StyledHotel>
       <StyledTop>
@@ -89,16 +106,7 @@ const Hotel = (props) => {
           sx={{ marginLeft: 'auto', fontSize: '40px' }}
         />
       </StyledTop>
-      {roomList.map((room) => (
-        <StyledBottom key={room.id}>
-          <StyledRoom>
-            <h4>{room.name}</h4>
-            <h5>Adults: {room.occupancy.maxAdults}</h5>
-            <h5>Children: {room.occupancy.maxChildren}</h5>
-          </StyledRoom>
-          <StyledDescription>{room.longDescription}</StyledDescription>
-        </StyledBottom>
-      ))}
+      {filteredRooms}
     </StyledHotel>
   );
 };
