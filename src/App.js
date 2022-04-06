@@ -39,7 +39,6 @@ function App() {
 
   return (
     <>
-      1
       <Reset />
       <Filters
         value={starValue}

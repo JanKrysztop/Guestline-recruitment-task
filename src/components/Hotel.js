@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Rating from '@mui/material/Rating';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const StyledHotel = styled.div`
   margin: 20px 200px;
@@ -11,12 +12,39 @@ const StyledTop = styled.div`
   padding: 25px;
   display: flex;
   border-bottom: solid 1px black;
+  .left-arrow {
+    position: absolute;
+    top: 42%;
+    left: 1px;
+    font-size: 2.5rem;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+    user-select: none;
+  }
+  .right-arrow {
+    position: absolute;
+    top: 42%;
+    right: 1px;
+    font-size: 2.5rem;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+    user-select: none;
+  }
 `;
 
 const StyledImages = styled.div`
+  position: relative;
   width: 200px;
   height: 200px;
+  display: flex;
   border: 1px solid black;
+  img {
+    width: 100%;
+    height: 100%;
+    /* object-fit: contain; */
+  }
 `;
 
 const StyledName = styled.div`
@@ -53,12 +81,24 @@ const StyledDescription = styled.p`
 
 const Hotel = (props) => {
   const [roomList, setRoomList] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const length = props.image.length;
 
   useEffect(() => {
     fetchRoomData();
-    console.log(roomList);
   }, []);
 
+  const nextSlide = () => {
+    setCurrentSlide(currentSlide === length - 1 ? 0 : currentSlide + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(currentSlide === 0 ? length - 1 : currentSlide - 1);
+  };
+
+  if (!Array.isArray(props.image) || length <= 0) {
+    return null;
+  }
   const fetchRoomData = () => {
     fetch(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${props.id}`)
       .then((response) => response.json())
@@ -85,15 +125,22 @@ const Hotel = (props) => {
   return (
     <StyledHotel>
       <StyledTop>
-        {props.image.map((img) => (
-          <StyledImages>
-            <img
-              src={img.url}
-              alt="hotel image"
-              style={{ width: '100%', height: '100%' }}
-            />
-          </StyledImages>
-        ))}
+        <StyledImages>
+          <IoIosArrowBack className="left-arrow" onClick={prevSlide} />
+          {props.image.map((img, index) => {
+            return (
+              <div
+                className={index === currentSlide ? 'slide active' : 'slide'}
+                key={index}
+              >
+                {index === currentSlide && (
+                  <img src={img.url} alt="hotel image" />
+                )}
+              </div>
+            );
+          })}
+          <IoIosArrowForward className="right-arrow" onClick={nextSlide} />
+        </StyledImages>
         <StyledName>
           <h2>{props.name}</h2>
           <h3>{props.address1}</h3>
