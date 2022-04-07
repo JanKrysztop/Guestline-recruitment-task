@@ -1,33 +1,6 @@
 import styled from 'styled-components';
 import Rating from '@mui/material/Rating';
 import { useState } from 'react';
-const StyledContainer = styled.div`
-  margin: 30px auto;
-  height: 50px;
-  width: 660px;
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
-`;
-
-const StyledCounters = styled.div`
-  display: flex;
-  font-size: 20px;
-`;
-
-const StyledSingle = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 40px;
-`;
-
-const StyledButton = styled.button`
-  padding: 10px;
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
-  align-items: center;
-`;
 
 const Filters = (props) => {
   return (
@@ -85,3 +58,31 @@ const Filters = (props) => {
 };
 
 export default Filters;
+
+const StyledContainer = styled.div`
+  margin: 30px auto;
+  height: 50px;
+  width: 660px;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+`;
+
+const StyledCounters = styled.div`
+  display: flex;
+  font-size: 20px;
+`;
+
+const StyledSingle = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+`;
+
+const StyledButton = styled.button`
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  align-items: center;
+`;

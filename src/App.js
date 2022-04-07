@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Hotel from './components/Hotel';
 import Filters from './components/Filters';
 
-function App() {
+const App = () => {
   const [hotelList, setHotelList] = useState([]);
   const [starValue, setStarValue] = useState(0);
   const [adultsCount, setAdultsCount] = useState(0);
@@ -51,6 +51,6 @@ function App() {
       {filteredHotel}
     </>
   );
-}
+};
 
 export default App;
