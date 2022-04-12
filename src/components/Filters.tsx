@@ -1,7 +1,16 @@
 import styled from 'styled-components';
 import Rating from '@mui/material/Rating';
 
-const Filters = (props) => {
+interface FilterProps {
+  value: number | null;
+  setValue: React.Dispatch<React.SetStateAction<number | null>>;
+  adultsCount: number;
+  setAdultsCount: React.Dispatch<React.SetStateAction<number>>;
+  childrenCount: number;
+  setChildrenCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Filters = (props: FilterProps) => {
   return (
     <StyledContainer>
       <Rating

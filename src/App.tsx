@@ -15,7 +15,7 @@ interface HotelList {
 
 const App = () => {
   const [hotelList, setHotelList] = useState<HotelList[]>([]);
-  const [starValue, setStarValue] = useState('');
+  const [starValue, setStarValue] = useState<null | number>(0);
   const [adultsCount, setAdultsCount] = useState(0);
   const [childrenCount, setChildrenCount] = useState(0);
 
@@ -31,7 +31,7 @@ const App = () => {
   };
 
   const filteredHotel = hotelList
-    .filter(({ starRating }) => starRating >= starValue)
+    .filter(({ starRating }) => parseInt(starRating) >= starValue!)
     .map((hotel) => (
       <Hotel
         key={hotel.id}
