@@ -94,7 +94,7 @@ const StyledTop = styled.div`
     position: absolute;
     top: 42%;
     left: 1px;
-    font-size: 2.5rem;
+    font-size: 40px;
     color: white;
     z-index: 100;
     cursor: pointer;
@@ -104,7 +104,7 @@ const StyledTop = styled.div`
     position: absolute;
     top: 42%;
     right: 1px;
-    font-size: 2.5rem;
+    font-size: 40px;
     color: white;
     z-index: 100;
     cursor: pointer;
@@ -121,7 +121,6 @@ const StyledImages = styled.div`
   img {
     width: 100%;
     height: 100%;
-    /* object-fit: contain; */
   }
 `;
 
