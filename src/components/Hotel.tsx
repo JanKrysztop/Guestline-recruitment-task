@@ -3,13 +3,33 @@ import styled from 'styled-components';
 import Rating from '@mui/material/Rating';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-const Hotel = (props) => {
-  const [roomList, setRoomList] = useState([]);
+interface PropsHotel {
+  key: string;
+  id: string;
+  image: { url: string }[];
+  name: string;
+  address1: string;
+  address2: string;
+  rating: string;
+  adultsCount: number;
+  childrenCount: number;
+  occupancy: Occupancy;
+  longDescription: string;
+}
+
+interface Occupancy {
+  maxAdults: number;
+  maxChildren: number;
+}
+
+const Hotel = (props: PropsHotel) => {
+  const [roomList, setRoomList] = useState<PropsHotel[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const length = props.image.length;
 
   useEffect(() => {
     fetchRoomData();
+    console.log(roomList);
   }, []);
 
   const nextSlide = () => {
@@ -69,7 +89,7 @@ const Hotel = (props) => {
         </StyledName>
         <Rating
           name="read-only"
-          value={props.rating}
+          value={parseInt(props.rating)}
           readOnly
           sx={{ marginLeft: 'auto', fontSize: '40px' }}
         />

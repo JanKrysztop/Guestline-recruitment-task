@@ -10,7 +10,7 @@ interface HotelList {
   address2: string;
   starRating: string;
   id: string;
-  images: string[];
+  images: { url: string }[];
 }
 
 const App = () => {
@@ -43,6 +43,9 @@ const App = () => {
         rating={hotel.starRating}
         adultsCount={adultsCount}
         childrenCount={childrenCount}
+        // Czy to poniżej tak powinno być????????????????????????????????????????????
+        occupancy={{ maxAdults: 0, maxChildren: 0 }}
+        longDescription={''}
       />
     ));
 
