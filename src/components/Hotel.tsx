@@ -1,15 +1,8 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Rating from '@mui/material/Rating';
 import Slides from './Slides';
 import { Image } from './Slides';
-
-interface RoomData {
-  id: string;
-  name: string;
-  occupancy: Occupancy;
-  longDescription: string;
-}
+import Rooms from './Rooms';
 
 export interface HotelData {
   id: string;
@@ -26,44 +19,7 @@ interface Props {
   childrenCount: number;
 }
 
-interface Occupancy {
-  maxAdults: number;
-  maxChildren: number;
-}
-
 const Hotel = (props: Props) => {
-  const [roomList, setRoomList] = useState<RoomData[]>([]);
-
-  useEffect(() => {
-    fetchRoomData();
-    console.log(roomList);
-  }, []);
-
-  const fetchRoomData = () => {
-    fetch(
-      `https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${props.hotel.id}`
-    )
-      .then((response) => response.json())
-      .then((data) => setRoomList(data.rooms));
-  };
-
-  const filteredRooms = roomList
-    .filter(
-      ({ occupancy }) =>
-        occupancy.maxAdults >= props.adultsCount &&
-        occupancy.maxChildren >= props.childrenCount
-    )
-    .map((room) => (
-      <StyledBottom key={room.id}>
-        <StyledRoom>
-          <h4>{room.name}</h4>
-          <h5>Adults: {room.occupancy.maxAdults}</h5>
-          <h5>Children: {room.occupancy.maxChildren}</h5>
-        </StyledRoom>
-        <StyledDescription>{room.longDescription}</StyledDescription>
-      </StyledBottom>
-    ));
-
   return (
     <StyledHotel>
       <StyledTop>
@@ -80,7 +36,11 @@ const Hotel = (props: Props) => {
           sx={{ marginLeft: 'auto', fontSize: '40px' }}
         />
       </StyledTop>
-      {filteredRooms}
+      <Rooms
+        id={props.hotel.id}
+        adultsCount={props.adultsCount}
+        childrenCount={props.childrenCount}
+      />
     </StyledHotel>
   );
 };
@@ -118,18 +78,6 @@ const StyledTop = styled.div`
   }
 `;
 
-// const StyledImages = styled.div`
-//   position: relative;
-//   width: 200px;
-//   height: 200px;
-//   display: flex;
-//   border: 1px solid black;
-//   img {
-//     width: 100%;
-//     height: 100%;
-//   }
-// `;
-
 const StyledName = styled.div`
   padding-left: 10px;
   font-size: 40px;
@@ -137,27 +85,4 @@ const StyledName = styled.div`
     margin-top: 20px;
     font-size: 30px;
   }
-`;
-
-const StyledBottom = styled.div`
-  display: flex;
-  border: 1px solid black;
-`;
-
-const StyledRoom = styled.div`
-  width: 150px;
-  margin: 20px;
-  padding-right: 20px;
-  h4 {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  h5 {
-    margin-bottom: 5px;
-  }
-`;
-
-const StyledDescription = styled.p`
-  width: 100%;
-  margin: 10px;
 `;

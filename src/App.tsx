@@ -12,7 +12,6 @@ const App = () => {
 
   useEffect(() => {
     fetchApiData();
-    console.log(hotelList);
   }, []);
 
   const fetchApiData = () => {
