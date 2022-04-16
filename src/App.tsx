@@ -1,20 +1,11 @@
-import React from 'react';
 import { Reset } from 'styled-reset';
 import { useState, useEffect } from 'react';
 import Hotel from './components/Hotel';
 import Filters from './components/Filters';
-
-interface HotelList {
-  name: string;
-  address1: string;
-  address2: string;
-  starRating: string;
-  id: string;
-  images: { url: string }[];
-}
+import { HotelData } from './components/Hotel';
 
 const App = () => {
-  const [hotelList, setHotelList] = useState<HotelList[]>([]);
+  const [hotelList, setHotelList] = useState<HotelData[]>([]);
   const [starValue, setStarValue] = useState<null | number>(0);
   const [adultsCount, setAdultsCount] = useState(0);
   const [childrenCount, setChildrenCount] = useState(0);
@@ -30,22 +21,14 @@ const App = () => {
       .then((json) => setHotelList(json));
   };
 
-  const filteredHotel = hotelList
+  const filteredHotels = hotelList
     .filter(({ starRating }) => parseInt(starRating) >= starValue!)
     .map((hotel) => (
       <Hotel
         key={hotel.id}
-        id={hotel.id}
-        image={hotel.images}
-        name={hotel.name}
-        address1={hotel.address1}
-        address2={hotel.address2}
-        rating={hotel.starRating}
+        hotel={hotel}
         adultsCount={adultsCount}
         childrenCount={childrenCount}
-        // Czy to poniżej tak powinno być????????????????????????????????????????????
-        occupancy={{ maxAdults: 0, maxChildren: 0 }}
-        longDescription={''}
       />
     ));
 
@@ -60,7 +43,7 @@ const App = () => {
         childrenCount={childrenCount}
         setChildrenCount={setChildrenCount}
       />
-      {filteredHotel}
+      {filteredHotels}
     </>
   );
 };

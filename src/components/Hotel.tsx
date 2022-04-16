@@ -1,20 +1,29 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Rating from '@mui/material/Rating';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import Slides from './Slides';
+import { Image } from './Slides';
 
-interface PropsHotel {
-  key: string;
+interface RoomData {
   id: string;
-  image: { url: string }[];
+  name: string;
+  occupancy: Occupancy;
+  longDescription: string;
+}
+
+export interface HotelData {
+  id: string;
+  images: Image[];
   name: string;
   address1: string;
   address2: string;
-  rating: string;
+  starRating: string;
+}
+
+interface Props {
+  hotel: HotelData;
   adultsCount: number;
   childrenCount: number;
-  occupancy: Occupancy;
-  longDescription: string;
 }
 
 interface Occupancy {
@@ -22,26 +31,18 @@ interface Occupancy {
   maxChildren: number;
 }
 
-const Hotel = (props: PropsHotel) => {
-  const [roomList, setRoomList] = useState<PropsHotel[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const length = props.image.length;
+const Hotel = (props: Props) => {
+  const [roomList, setRoomList] = useState<RoomData[]>([]);
 
   useEffect(() => {
     fetchRoomData();
     console.log(roomList);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide(currentSlide === length - 1 ? 0 : currentSlide + 1);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(currentSlide === 0 ? length - 1 : currentSlide - 1);
-  };
-
   const fetchRoomData = () => {
-    fetch(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${props.id}`)
+    fetch(
+      `https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${props.hotel.id}`
+    )
       .then((response) => response.json())
       .then((data) => setRoomList(data.rooms));
   };
@@ -66,30 +67,15 @@ const Hotel = (props: PropsHotel) => {
   return (
     <StyledHotel>
       <StyledTop>
-        <StyledImages>
-          <IoIosArrowBack className="left-arrow" onClick={prevSlide} />
-          {props.image.map((img, index) => {
-            return (
-              <div
-                className={index === currentSlide ? 'slide active' : 'slide'}
-                key={index}
-              >
-                {index === currentSlide && (
-                  <img src={img.url} alt="hotel image" />
-                )}
-              </div>
-            );
-          })}
-          <IoIosArrowForward className="right-arrow" onClick={nextSlide} />
-        </StyledImages>
+        <Slides images={props.hotel.images} />
         <StyledName>
-          <h2>{props.name}</h2>
-          <h3>{props.address1}</h3>
-          <h3>{props.address2}</h3>
+          <h2>{props.hotel.name}</h2>
+          <h3>{props.hotel.address1}</h3>
+          <h3>{props.hotel.address2}</h3>
         </StyledName>
         <Rating
           name="read-only"
-          value={parseInt(props.rating)}
+          value={parseInt(props.hotel.starRating)}
           readOnly
           sx={{ marginLeft: 'auto', fontSize: '40px' }}
         />
@@ -132,17 +118,17 @@ const StyledTop = styled.div`
   }
 `;
 
-const StyledImages = styled.div`
-  position: relative;
-  width: 200px;
-  height: 200px;
-  display: flex;
-  border: 1px solid black;
-  img {
-    width: 100%;
-    height: 100%;
-  }
-`;
+// const StyledImages = styled.div`
+//   position: relative;
+//   width: 200px;
+//   height: 200px;
+//   display: flex;
+//   border: 1px solid black;
+//   img {
+//     width: 100%;
+//     height: 100%;
+//   }
+// `;
 
 const StyledName = styled.div`
   padding-left: 10px;

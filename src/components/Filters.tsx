@@ -19,7 +19,7 @@ const Filters = (props: FilterProps) => {
         onChange={(event, newValue) => {
           props.setValue(newValue);
         }}
-        sx={{ fontSize: '40px', padding: '0 25px' }}
+        sx={{ fontSize: '40px', margin: '0 25px' }}
       />
       <StyledCounters>
         <StyledSingle>
@@ -91,4 +91,5 @@ const StyledButton = styled.button`
   border: none;
   font-size: 20px;
   align-items: center;
+  cursor: pointer;
 `;
