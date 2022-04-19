@@ -12,13 +12,13 @@
 
 #### 3. Unzip downloaded folder to target location
 
-#### 4. Open up a console (powershell/bash)
+#### 4. Install node.js from this link : https://nodejs.org/en/
 
-#### 5. Navigate to where "Guestline-recruitment-task-main" is located
+#### 5. Open up a console (powershell/bash)
+
+#### 6. Navigate to where "Guestline-recruitment-task-main" is located
 
     cd /.../Guestline-recruitment-task-main
-
-#### 6. Install node.js from this link : https://nodejs.org/en/
 
 #### 7. While inside this folder type in command:
 
