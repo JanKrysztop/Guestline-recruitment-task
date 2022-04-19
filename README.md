@@ -2,27 +2,27 @@
 
 ## How to start up this project :
 
-### 1. First, click on the green button that says "Code"
+#### 1. First, click on the green button that says "Code"
 
 <img src='./public/1.png' width='1200'>
 
-### 2. Then select "Download ZIP" option
+#### 2. Then select "Download ZIP" option
 
 <img src='./public/2.png' width='1200'>
 
-### 3. Unzip downloaded folder to target location
+#### 3. Unzip downloaded folder to target location
 
-### 4. Open up a console (powershell/bash)
+#### 4. Open up a console (powershell/bash)
 
-### 5. Navigate to where "Guestline-recruitment-task-main" is located
+#### 5. Navigate to where "Guestline-recruitment-task-main" is located
 
     cd /.../Guestline-recruitment-task-main
 
-### 6. Inside this folder type:
+#### 6. Inside this folder type:
 
     npm install
 
-### 7. And finally use this command to start local server and view project in the browser:
+#### 7. And finally use this command to start local server and view project in the browser:
 
     npm start
 
