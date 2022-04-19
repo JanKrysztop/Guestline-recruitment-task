@@ -18,11 +18,13 @@
 
     cd /.../Guestline-recruitment-task-main
 
-#### 6. While inside this folder type in command:
+#### 6. Install node.js from this link : https://nodejs.org/en/
+
+#### 7. While inside this folder type in command:
 
     npm install
 
-#### 7. And finally use this command to start local server and view project in the browser:
+#### 8. And finally use this command to start local server and view project in the browser:
 
     npm start
 
