@@ -18,7 +18,7 @@
 
     cd /.../Guestline-recruitment-task-main
 
-#### 6. Inside this folder type:
+#### 6. While inside this folder type in command:
 
     npm install
 
